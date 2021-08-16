@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe User do
+RSpec.describe User, type: :model do
   context "With valid attributes" do
     it "should save" do
       user = User.new(
@@ -20,8 +20,6 @@ RSpec.describe User do
       )
       expect(user).to be_invalid
     end
-
-  context "With invalid attributes" do
     it "should not save if last_name field is blank" do
       user = User.new(
         first_name: 'shane',
@@ -30,27 +28,26 @@ RSpec.describe User do
       )
       expect(user).to be_invalid
     end
-  end
-
-  context "With invalid attributes" do
     it "should not save if email already exists" do
-      user = User.new(
-        first_name: 'shane',
-        last_name: 'chang',
-        email: 'schang@codingdojo.com'
+      user = User.create(
+        first_name: 'Harry',
+        last_name: 'Potter',
+        email: 'hp@codingdojo.com'
       )
-      expect(user).to be_valid
+      user = User.new(
+        first_name: "Happy",
+        last_name: "Person",
+        email: 'hp@codingdojo.com'
+      )
+      expect(user).to be_invalid
     end
-  end
-
-  context "With invalid attributes" do
     it "should not save if invalid email format" do
       user = User.new(
         first_name: 'shane',
         last_name: 'chang',
         email: 'asdf'
       )
-      expect(user).to be_valid
+      expect(user).to be_invalid
     end
   end
 end
